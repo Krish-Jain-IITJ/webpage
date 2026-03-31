@@ -109,12 +109,17 @@
       top: 70px;
     }
     .profile-card {
-      background: var(--white);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(26,42,74,0.10);
-      border: 1px solid var(--border);
-    }
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(26,42,74,0.10);
+  border: 1px solid var(--border);
+
+  aspect-ratio: 1 / 1;   /* makes it square */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
     .profile-header {
       background: var(--navy);
       padding: 1.8rem 1.5rem 1rem;
