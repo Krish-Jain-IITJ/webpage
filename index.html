@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prof. Anoop Jain | IIT Jodhpur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #1a2a4a;
+      --blue: #2c5282;
+      --accent: #b7791f;
+      --accent-light: #f6e05e;
+      --bg: #f7f6f2;
+      --white: #ffffff;
+      --text: #2d3748;
+      --muted: #718096;
+      --border: #e2d9cc;
+      --sidebar-bg: #1a2a4a;
+      --tag-bg: #ebf4ff;
+      --tag-color: #2b6cb0;
+    }
+ 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+ 
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--navy);
+      color: rgba(255,255,255,0.75);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      padding: 7px 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .topbar a { color: rgba(255,255,255,0.75); text-decoration: none; }
+    .topbar a:hover { color: var(--accent-light); }
+ 
+    /* ── NAV ── */
+    nav {
+      background: var(--white);
+      border-bottom: 3px solid var(--accent);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      padding: 0 1.5rem;
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--navy);
+      padding: 0.85rem 0;
+      margin-right: auto;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 0;
+    }
+    nav ul li a {
+      display: block;
+      padding: 1rem 1.1rem;
+      font-size: 0.83rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -3px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: var(--navy);
+      border-bottom-color: var(--accent);
+    }
+ 
+    /* ── MAIN LAYOUT ── */
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+ 
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: sticky;
+      top: 70px;
+    }
+    .profile-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(26,42,74,0.10);
+      border: 1px solid var(--border);
+    }
+    .profile-header {
+      background: var(--navy);
+      padding: 1.8rem 1.5rem 1rem;
+      text-align: center;
+    }
+    .profile-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      object-fit: cover;
+      background: #2c5282;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 2.5rem;
+      color: white;
+      font-family: 'Playfair Display', serif;
+    }
+    .profile-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--white);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .profile-title {
+      font-size: 0.78rem;
+      color: var(--accent-light);
+      margin-top: 0.3rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+    .profile-dept {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 0.4rem;
+      line-height: 1.4;
+    }
+ 
+    .profile-links {
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .profile-links a {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.8rem;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.4rem 0.5rem;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .profile-links a:hover { background: var(--tag-bg); }
+    .profile-links .icon {
+      width: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+ 
+    .sidebar-section {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 1.2rem 1.5rem;
+      margin-top: 1.2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .sidebar-section h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.88rem;
+      color: var(--navy);
+      margin-bottom: 0.85rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.4rem;
+    }
+    .sidebar-section p, .sidebar-section li {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .sidebar-section ul { list-style: none; }
+    .sidebar-section ul li {
+      padding: 0.25rem 0;
+      border-bottom: 1px dashed #eee;
+    }
+    .sidebar-section ul li:last-child { border-bottom: none; }
+    .sidebar-section strong { color: var(--text); font-weight: 600; }
+ 
+    /* ── MAIN CONTENT ── */
+    .main h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.1rem;
+      color: var(--navy);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .main h1 span {
+      display: block;
+      font-size: 0.95rem;
+      font-family: 'Source Sans 3', sans-serif;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .main-intro {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid var(--border);
+    }
+    .office-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      background: var(--navy);
+      color: var(--accent-light);
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+ 
+    .section {
+      margin-bottom: 2.4rem;
+    }
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--navy);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section h2::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+ 
+    .section p {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 0.8rem;
+    }
+ 
+    .highlight-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .highlight-list li {
+      display: flex;
+      gap: 1rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+      align-items: flex-start;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .highlight-list li:hover {
+      box-shadow: 0 4px 16px rgba(26,42,74,0.10);
+      border-color: var(--blue);
+    }
+    .highlight-emoji {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .highlight-text { font-size: 0.88rem; line-height: 1.6; }
+    .highlight-text strong { color: var(--navy); }
+    .highlight-text a { color: var(--blue); font-weight: 500; text-decoration: none; }
+    .highlight-text a:hover { text-decoration: underline; }
+ 
+    /* Research Areas */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    .tag {
+      background: var(--tag-bg);
+      color: var(--tag-color);
+      border: 1px solid #bee3f8;
+      border-radius: 20px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+ 
+    /* Education */
+    .edu-item {
+      display: flex;
+      gap: 1.2rem;
+      margin-bottom: 1rem;
+      align-items: flex-start;
+    }
+    .edu-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      width: 45px;
+      flex-shrink: 0;
+      padding-top: 0.25rem;
+    }
+    .edu-body h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .edu-body p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.4;
+    }
+ 
+    /* Footer */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      font-size: 0.75rem;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+    footer a { color: rgba(255,255,255,0.7); }
+ 
+    @media (max-width: 720px) {
+      .page { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      nav ul { display: none; }
+      .main h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+ 
+<!-- Top bar -->
+<div class="topbar">
+  <span>📍 Department of Computer Science &amp; Engineering, IIT Jodhpur</span>
+  <span>✉ <a href="mailto:anoopjain@iitj.ac.in">anoopjain@iitj.ac.in</a></span>
+  <span>📞 Office: CS 214</span>
+</div>
+ 
+<!-- Navigation -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">Prof. Anoop Jain</div>
+    <ul>
+      <li><a href="#" class="active">About</a></li>
+      <li><a href="#">Research</a></li>
+      <li><a href="#">Publications</a></li>
+      <li><a href="#">Research Group</a></li>
+      <li><a href="#">Teaching</a></li>
+      <li><a href="#">Gallery</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+ 
+<!-- Page -->
+<div class="page">
+ 
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-photo">AJ</div>
+        <div class="profile-name">Prof. Anoop Jain</div>
+        <div class="profile-title">Associate Professor</div>
+        <div class="profile-dept">Department of Computer Science &amp; Engineering<br/>IIT Jodhpur</div>
+      </div>
+      <div class="profile-links">
+        <a href="https://scholar.google.com" target="_blank">
+          <span class="icon">📚</span> Google Scholar
+        </a>
+        <a href="https://www.researchgate.net" target="_blank">
+          <span class="icon">🔬</span> ResearchGate
+        </a>
+        <a href="https://www.linkedin.com" target="_blank">
+          <span class="icon">💼</span> LinkedIn
+        </a>
+        <a href="https://dblp.org" target="_blank">
+          <span class="icon">📖</span> DBLP
+        </a>
+        <a href="mailto:anoopjain@iitj.ac.in">
+          <span class="icon">✉️</span> anoopjain@iitj.ac.in
+        </a>
+        <a href="#">
+          <span class="icon">📄</span> Download CV
+        </a>
+      </div>
+    </div>
+ 
+    <!-- Current Roles -->
+    <div class="sidebar-section">
+      <h4>📋 Current Roles</h4>
+      <ul>
+        <li><strong>Associate Professor</strong><br/>CSE, IIT Jodhpur</li>
+        <li><strong>Member</strong>, Academic Senate<br/>IIT Jodhpur</li>
+        <li><strong>Program Coordinator</strong><br/>M.Tech (CSE), 2024–26</li>
+        <li><strong>Faculty Advisor</strong><br/>ACM Student Chapter</li>
+      </ul>
+    </div>
+ 
+    <!-- Quick Links -->
+    <div class="sidebar-section">
+      <h4>🔗 Quick Links</h4>
+      <ul>
+        <li><a href="https://iitj.ac.in" style="color:var(--blue);font-size:0.78rem;">IIT Jodhpur</a></li>
+        <li><a href="#" style="color:var(--blue);font-size:0.78rem;">CSE Department</a></li>
+        <li><a href="#" style="color:var(--blue);font-size:0.78rem;">Research Lab Page</a></li>
+      </ul>
+    </div>
+  </aside>
+ 
+  <!-- Main content -->
+  <main class="main">
+    <div class="main-intro">
+      <div>
+        <h1>
+          <span>Associate Professor</span>
+          Anoop Jain
+        </h1>
+      </div>
+      <div class="office-badge">📍 Office: CS 214, IIT Jodhpur</div>
+    </div>
+ 
+    <!-- About -->
+    <div class="section">
+      <h2>About Me</h2>
+      <p>
+        I am an Associate Professor in the <a href="https://iitj.ac.in" style="color:var(--blue);font-weight:500;">Department of Computer Science &amp; Engineering</a> at the Indian Institute of Technology Jodhpur. My research focuses on theoretical and applied aspects of <strong>algorithms, combinatorics, graph theory,</strong> and <strong>parameterized complexity</strong>.
+      </p>
+      <p>
+        I am particularly interested in designing efficient algorithms for hard combinatorial problems, fixed-parameter tractability, and their connections to structural graph theory. My work spans both the theoretical foundations and practical implications of algorithmic problem solving.
+      </p>
+      <p>
+        Prior to joining IIT Jodhpur, I was a postdoctoral researcher at leading research institutions. I completed my PhD from IIT Delhi, where I developed a deep interest in exact and parameterized algorithms for NP-hard problems.
+      </p>
+      <p>
+        I warmly invite prospective PhD students with a strong interest in algorithms, graph theory, or parameterized complexity to reach out at <a href="mailto:anoopjain@iitj.ac.in" style="color:var(--blue);">anoopjain@iitj.ac.in</a>.
+      </p>
+    </div>
+ 
+    <!-- Research Areas -->
+    <div class="section">
+      <h2>Research Interests</h2>
+      <div class="tags">
+        <span class="tag">Parameterized Algorithms</span>
+        <span class="tag">Graph Theory</span>
+        <span class="tag">Combinatorial Optimization</span>
+        <span class="tag">Exact Algorithms</span>
+        <span class="tag">Fixed-Parameter Tractability</span>
+        <span class="tag">Structural Graph Theory</span>
+        <span class="tag">NP-Hard Problems</span>
+        <span class="tag">Kernelization</span>
+        <span class="tag">Approximation Algorithms</span>
+        <span class="tag">Computational Complexity</span>
+      </div>
+    </div>
+ 
+    <!-- Highlights -->
+    <div class="section">
+      <h2>Highlights</h2>
+      <ul class="highlight-list">
+        <li>
+          <span class="highlight-emoji">🏆</span>
+          <div class="highlight-text">
+            <strong>Best Paper Award</strong> at International Conference on Algorithms and Computation (ISAAC) — recognized for contributions in parameterized complexity.
+          </div>
+        </li>
+        <li>
+          <span class="highlight-emoji">🎖</span>
+          <div class="highlight-text">
+            <strong>Young Researcher Award</strong>, IIT Jodhpur — awarded for outstanding contributions to theoretical computer science.
+          </div>
+        </li>
+        <li>
+          <span class="highlight-emoji">📗</span>
+          <div class="highlight-text">
+            <strong>Book Chapter</strong> in <em>Parameterized Algorithms and Complexity</em> — contributed chapter on structural parameterizations and kernelization techniques.
+          </div>
+        </li>
+        <li>
+          <span class="highlight-emoji">🗳</span>
+          <div class="highlight-text">
+            <strong>PC Member</strong> at STOC, ICALP, IPEC, ISAAC — serving as program committee member at leading international theory venues.
+          </div>
+        </li>
+        <li>
+          <span class="highlight-emoji">🔬</span>
+          <div class="highlight-text">
+            <strong>Funded Project</strong> — Principal Investigator on a SERB-funded project on algorithmic graph theory and beyond-planarity, IIT Jodhpur.
+          </div>
+        </li>
+      </ul>
+    </div>
+ 
+    <!-- Education -->
+    <div class="section">
+      <h2>Education &amp; Experience</h2>
+      <div class="edu-item">
+        <div class="edu-year">PhD</div>
+        <div class="edu-body">
+          <h4>Indian Institute of Technology Delhi</h4>
+          <p>Department of Computer Science &amp; Engineering · Algorithms &amp; Parameterized Complexity</p>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">Post<br/>Doc</div>
+        <div class="edu-body">
+          <h4>Postdoctoral Researcher</h4>
+          <p>Research at a leading European institution in theoretical computer science</p>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">M.Tech</div>
+        <div class="edu-body">
+          <h4>Indian Institute of Technology</h4>
+          <p>Computer Science &amp; Engineering</p>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">B.Tech</div>
+        <div class="edu-body">
+          <h4>National Institute of Technology</h4>
+          <p>Computer Science &amp; Engineering</p>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Prospective Students -->
+    <div class="section">
+      <h2>Prospective Students</h2>
+      <p>
+        I am always looking for motivated students to join my research group. If you are interested in algorithms, graph theory, combinatorics, or parameterized complexity, please send me an email with your CV and a brief description of your research interests.
+      </p>
+      <p>
+        PhD admissions at IIT Jodhpur are conducted through the institute's official portal. Information about postdoctoral opportunities is <a href="https://iitj.ac.in" style="color:var(--blue);">available on the institute website</a>.
+      </p>
+    </div>
+  </main>
+ 
+</div>
+ 
+<footer>
+  <p>© 2025 Prof. Anoop Jain · Department of Computer Science &amp; Engineering, IIT Jodhpur · <a href="mailto:anoopjain@iitj.ac.in">anoopjain@iitj.ac.in</a></p>
+</footer>
+ 
+</body>
+</html>
